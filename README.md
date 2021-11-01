@@ -43,7 +43,7 @@ plt.show()
 ```
 ![](figs/20211101_vr_for_orbit.png)
 
-## Pre-computed p(\gamma|e) grid
+## Pre-computed p(gamma|e) grid
 
 In the file `Demo 1 - Using p(gamma|e) grid.ipynb`, we demonstrate the use of the pre-computed grid data for p(gamma|e), the v-r angle distribution given an eccentricity. The grid is computed for eccentricity from 0 to 0.99, with a step of 0.01. The grid data in located in folder "grid_data".
 
