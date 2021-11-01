@@ -10,6 +10,8 @@ Here we provide codes and simulated data that are used in Hwang et al. (in prep.
 `binary_sampling` has two main classes, `binary()` and `binaries()`. `binary()` samples a single binary (i.e. single-value eccentricity, distance, etc.) with different orbital phase. Below is an example showing the v-r angle (the angle between the separation vector and the relative velocity vector) on binary orbits with different eccentricities (more detail can be found in `Demo 0 - Binary sampling.ipynb`):
 
 ```python
+from binary_sampling import *
+
 binary0 = binary(e=0., Nphase=5000)
 plt.scatter(
     binary0.rx,
