@@ -1,6 +1,6 @@
 # Eccentricities of wide binaries
 
-Here we provide the codes and the simulated data used in Hwang et al. (in prep.). In this paper, we developed a Bayesian method to infer the eccentricity of wide binaries from the v-r angle, the angle between the separation vector and the relative velocity vector. A large fraction of the work requires simulating binaries using the module `binary_sampling`.
+Here we provide the codes and the simulated data used in Hwang et al. (submitted). In this paper, we developed a Bayesian method to infer the eccentricity of wide binaries from the v-r angle, the angle between the separation vector and the relative velocity vector. A large fraction of the work requires simulating binaries using the module `binary_sampling`.
 
 
 ## binary_sampling
@@ -48,4 +48,4 @@ plt.show()
 In the file `Demo 1 - Using p(gamma|e) grid.ipynb`, we demonstrate the use of the pre-computed grid data for p(gamma|e), the v-r angle distribution given an eccentricity. The grid is computed using `binary_sampling` for eccentricity from 0 to 0.99, with a step of 0.01. The grid data in located in folder "grid_data".
 
 ## Reference
-Hwang, Ting & Zakamska (in prep.)
+Hwang, Ting & Zakamska, 2021, MNRAS (submitted)
