@@ -1,6 +1,6 @@
 # Eccentricities of wide binaries
 
-Here we provide the codes and the simulated data used in Hwang et al. (submitted). In this paper, we developed a Bayesian method to infer the eccentricity of wide binaries from the v-r angle, the angle between the separation vector and the relative velocity vector. A large fraction of the work requires simulating binaries using the module `binary_sampling`.
+Here we provide the codes and the simulated data used in [Hwang et al. (submitted)](https://arxiv.org/abs/2111.01789). In this paper, we developed a Bayesian method to infer the eccentricity of wide binaries from the v-r angle, the angle between the separation vector and the relative velocity vector. A large fraction of the work is done by simulating binaries using the module `binary_sampling`.
 
 
 ## binary_sampling
