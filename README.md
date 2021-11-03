@@ -48,4 +48,4 @@ plt.show()
 In the file `Demo 1 - Using p(gamma|e) grid.ipynb`, we demonstrate the use of the pre-computed grid data for p(gamma|e), the v-r angle distribution given an eccentricity. The grid is computed using `binary_sampling` for eccentricity from 0 to 0.99, with a step of 0.01. The grid data in located in folder "grid_data".
 
 ## Reference
-Hwang, Ting & Zakamska, 2021, MNRAS (submitted)
+[Hwang, Ting & Zakamska, 2021, MNRAS (submitted)](https://arxiv.org/abs/2111.01789)
