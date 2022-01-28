@@ -1,15 +1,17 @@
 # Eccentricities of wide binaries
 
-Here we provide codes and simulated data that are used in Hwang et al. (in prep.). In this paper, we developed a Bayesian method to infer the eccentricity of wide binaries from the v-r angle, the angle between the separation vector and the relative velocity vector.
+Here we provide the codes and the simulated data used in [Hwang et al. (submitted)](https://arxiv.org/abs/2111.01789). In this paper, we developed a Bayesian method to infer the eccentricity of wide binaries from the v-r angle, the angle between the separation vector and the relative velocity vector. A large fraction of the work is done by simulating binaries using the module `binary_sampling`.
 
 
 ## binary_sampling
 
-`binary_sampling` is a light-weighted package that samples the binaries with different eccentricities, orbital phases, orientation, (optional: bianry separations and distances). The package does not include orbital evolution calculation.
+`binary_sampling` is a light-weighted module that samples the binaries with different eccentricities, orbital phases, orientation, (optional: bianry separations and distances). The module does not include orbital evolution calculation.
 
-`binary_sampling` has two main classes, `binary()` and `binaries()`. `binary()` samples a single binary (i.e. single-value eccentricity, distance, etc.) with different orbital phase. For example, in ``
+`binary_sampling` has two main classes, `binary()` and `binaries()`. `binary()` samples a single binary (i.e. single-value eccentricity, distance, etc.) with different orbital phase. Below is an example showing the v-r angle (the angle between the separation vector and the relative velocity vector) on binary orbits with different eccentricities (more detail can be found in `Demo 0 - Binary sampling.ipynb`):
 
 ```python
+from binary_sampling import *
+
 binary0 = binary(e=0., Nphase=5000)
 plt.scatter(
     binary0.rx,
@@ -41,8 +43,9 @@ plt.show()
 ```
 ![](figs/20211101_vr_for_orbit.png)
 
+## Pre-computed p(gamma|e) grid
 
-In the file `Demo 1 - Using p(gamma|e) grid.ipynb`, we demonstrate the use of the pre-computed grid data for p(gamma|e), the v-r angle distribution given an eccentricity. The grid data in located in folder "grid_data".
+In the file `Demo 1 - Using p(gamma|e) grid.ipynb`, we demonstrate the use of the pre-computed grid data for p(gamma|e), the v-r angle distribution given an eccentricity. The grid is computed using `binary_sampling` for eccentricity from 0 to 0.99, with a step of 0.01. The grid data in located in folder "grid_data".
 
 ## Reference
-Hwang, Ting & Zakamska (in prep.)
+[Hwang, Ting & Zakamska, 2021, MNRAS (submitted)](https://arxiv.org/abs/2111.01789)
