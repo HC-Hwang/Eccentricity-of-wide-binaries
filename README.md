@@ -47,5 +47,11 @@ plt.show()
 
 In the file `Demo 1 - Using p(gamma|e) grid.ipynb`, we demonstrate the use of the pre-computed grid data for p(gamma|e), the v-r angle distribution given an eccentricity. The grid is computed using `binary_sampling` for eccentricity from 0 to 0.99, with a step of 0.01. The grid data in located in folder "grid_data".
 
+## Infer eccentricities of individual wide binaries
+
+In the file `Demo 2 - Infer eccentricities for individual wide binaries.ipynb`, we provide the procedure to compute the probability distribution function (PDF) for individual eccentricities. With this, we know something about individual eccentricities (notice that these wide binaries can have orbital periods as long as 1 Myr)!!
+![](figs/20211031_e_pdf_example.png)
+
+
 ## Reference
 [Hwang, Ting & Zakamska, 2021, MNRAS (submitted)](https://arxiv.org/abs/2111.01789)
