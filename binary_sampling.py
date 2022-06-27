@@ -205,13 +205,14 @@ class binaries(two_body_system):
 
         if m is None:
             self.m = 2. * u.Msun
+        elif isinstance(m, (u.quantity.Quantity)):
+            self.m = m
         elif isinstance(m, (list, np.ndarray)):
             if len(m) == Nbinary:
                 self.m = m
             else:
                 raise ValueError('len(m) not equal to Nbinary')
-        elif isinstance(m, (u.quantity.Quantity)):
-            self.m = m
+        
 
 
         if distance is None:
