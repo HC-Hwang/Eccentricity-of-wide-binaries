@@ -7,6 +7,28 @@ import copy
 from numpy import cos, sin
 from astropy import constants as const
 
+from scipy.interpolate import griddata
+import os
+
+package_directory = os.path.dirname(os.path.abspath(__file__))
+#print(package_directory)
+
+#load data for mean-to-true anomaly conversion
+data_e_list, data_M_list, data_f_list_list = np.load(package_directory + '/anomaly_data/mean_to_true_anomaly_grid.npy', allow_pickle=True)
+
+#add last array at e=1 so that the interpolation function return the e=e_max result for e>e_max
+e_list_con = np.concatenate([data_e_list, [1.]]) 
+f_list_list_con = np.concatenate([data_f_list_list, [data_f_list_list[-1]]])
+
+xv, yv = np.meshgrid(e_list_con, data_M_list, indexing='ij')
+xy_flatten = np.array(list(zip(xv.flatten(), yv.flatten())))
+
+def mean_to_true_anomaly_from_grid(e_list, M_list):
+    #but I suspect griddata is too slow, even with pre-computed grid...
+
+    return griddata(xy_flatten, 
+         f_list_list_con.flatten(), (e_list, M_list), method='linear')
+
 def random_sample_from_a_power_law(x0, x1, gamma, N_random):
     
     return (np.random.uniform(size=N_random) * (x1**(gamma+1) - x0**(gamma+1)) + x0**(gamma+1))**(1./(gamma+1.))
@@ -30,7 +52,7 @@ def random_sample_from_a_straight_line(k, N):
         return (-(1 - 0.5 * k) + np.sqrt((1 - 0.5 * k)**2 + 2 * k * U)) / k
     
 
-def random_true_anomaly(e, N, u_precision = 0.5 * np.pi / 180., equal_spaced_M=False):
+def random_true_anomaly(e, N, u_precision = 0.5 * np.pi / 180., equal_spaced_M=False, init_by_grid_data=True):
 
     #M: mean anomaly
     if equal_spaced_M:
@@ -40,6 +62,11 @@ def random_true_anomaly(e, N, u_precision = 0.5 * np.pi / 180., equal_spaced_M=F
     
     #u: eccentric anomaly, initialized by mean anomaly
     u = copy.copy(M)
+    if init_by_grid_data:
+        if isinstance(e, (list, np.ndarray)):
+            u = mean_to_true_anomaly_from_grid(e, M)
+        elif isinstance(e, (int, float)):
+            u = mean_to_true_anomaly_from_grid([e] * N, M)
     
     #solve for eccentric anomaly iteratively
     #u_precision = 0.5 * np.pi / 180.
@@ -52,6 +79,9 @@ def random_true_anomaly(e, N, u_precision = 0.5 * np.pi / 180., equal_spaced_M=F
             ee = e[i]
         
         correction = (M[i] - u[i] + ee * sin(u[i])) / (1. - ee * cos(u[i]))
+
+        while np.abs(correction) > np.pi: #to deal with cases that have large correction (especially for highly eccentric orbits, e>0.999)
+            correction = correction * 0.1
         
         while np.abs(correction) > u_precision:
             u[i] = u[i] + correction
@@ -112,7 +142,7 @@ class binary(two_body_system):
         m1=1.*u.Msun, m2=1.*u.Msun,
         a=1.*u.AU, e=0., distance=1.*u.kpc, Nphase=100,
         u_precision = 0.5 * np.pi / 180.,
-        faceon=True
+        faceon=True, equal_spaced_M=True
         ):
         self.m1 = m1
         self.m2 = m2
@@ -122,7 +152,7 @@ class binary(two_body_system):
         self.distance = distance
         self.Nphase = Nphase
 
-        self.f = random_true_anomaly(self.e, Nphase, u_precision, equal_spaced_M=True)
+        self.f = random_true_anomaly(self.e, Nphase, u_precision, equal_spaced_M=equal_spaced_M)
 
         
 
@@ -149,6 +179,7 @@ class binaries(two_body_system):
         distance=None,
         u_precision = 0.5 * np.pi / 180.,
         faceon=False,
+        true_anomaly_init='random-mean-anomaly'
         ):
 
         self.Nbinary = Nbinary
@@ -226,9 +257,9 @@ class binaries(two_body_system):
                 raise ValueError('len(distance) != Nbinary')
         
 
+        if true_anomaly_init == 'random-mean-anomaly':
+            self.f = random_true_anomaly(self.e, Nbinary, u_precision)
 
-        self.f = random_true_anomaly(self.e, Nbinary, u_precision)
-        
         if faceon is True:
             self.Omega = np.zeros(Nbinary)
             self.omega = np.zeros(Nbinary)
