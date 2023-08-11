@@ -59,4 +59,4 @@ In the file `Demo 2 - Infer eccentricities for individual wide binaries.ipynb`, 
 ## Reference
 [Hwang, Ting & Zakamska, 2022, MNRAS](https://ui.adsabs.harvard.edu/abs/2022MNRAS.512.3383H/abstract)
 
-[Hwang, El-Badry, Rix, Hamilton, Ting, & Zakamska, 2022, ApJL, accepted](https://arxiv.org/abs/2205.05690)
+[Hwang, El-Badry, Rix, Hamilton, Ting, & Zakamska, 2022, ApJL, 933, L32](https://ui.adsabs.harvard.edu/abs/2022ApJ...933L..32H/abstract)
